@@ -1,0 +1,63 @@
+#!/bin/sh
+#
+# omniORB:		Starts omniORB
+#
+# chkconfig:	345 85 15
+# description:	This is a daemon which handles CORBA connections for \
+#		example for 3dwm.
+# processname:	omniNames
+# config:	/etc/omniORB.cfg
+#
+
+# Sanity checks.
+[ -f /etc/omniORB.cfg ] || exit 0
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Get sysconfig
+[ -f /etc/sysconfig/omniORB ] && . /etc/sysconfig/omniORB
+  
+# See how we were called.
+case "$1" in
+    start)
+	if [ ! -f /var/lock/subsys/omniORB ]; then
+		msg_starting "omniNames for omniORB"
+		if [ -f "/var/log/omniORB/omninames-$(hostname).log" ] ; then
+			START=
+		else
+			START=-start
+		fi
+		daemon "sh -c 'omniNames $START -errlog /var/log/omniORB/omninames-err.log &'"
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/omniORB
+	else
+		msg_already_running "omniNames for omniORB"
+		exit 1
+	fi
+        touch /var/lock/subsys/omniORB
+        ;;
+    stop)
+	if [ -f /var/lock/subsys/omniORB ]; then
+		msg_stopping "omniNames for omniORB"
+		killproc omniNames
+		rm -f /var/lock/subsys/omniORB >/dev/null 2>&1
+	else
+		msg_not_running "Name Switch Cache Daemon"
+		exit 1
+	fi	
+	;;
+  status)
+        status omniNames
+        ;;
+  restart|reload)
+        $0 stop
+        $0 start
+        ;;
+    *)
+	msg_usage "$0 {start|stop|status|restart|reload}"
+	exit 1
+	;;
+esac
+
+exit $RETVAL
