@@ -82,14 +82,14 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_mandir}/man1,%{_sysconfdir}/rc.d/init.d,/var/log/%{name}}
+install -d $RPM_BUILD_ROOT{%{_mandir}/man1,/etc/rc.d/init.d,/var/log/%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install man/man1/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install sample.cfg $RPM_BUILD_ROOT%{_sysconfdir}/omniORB.cfg
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/%{name}
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 
 # rpmdeps doesn't generate ELF deps for non-executable .so
 chmod 755 $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.*
