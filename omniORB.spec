@@ -17,7 +17,7 @@ URL:		http://omniorb.sf.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
-BuildRequires:	openssl-devel
+BuildRequires:	openssl-devel >= 0.9.7d
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
