@@ -14,6 +14,8 @@ Source0:	http://dl.sourceforge.net/omniorb/%{name}-%{version}.tar.gz
 # Source0-md5:	283e4744759b73368fbea66f98c2bd95
 Source1:	%{name}.init
 URL:		http://omniorb.sf.net/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel
 Requires(post,preun):	/sbin/chkconfig
