@@ -6,12 +6,12 @@
 Summary:	Object Request Broker (ORB) from AT&T (CORBA 2.6)
 Summary(pl):	Object Request Broker (ORB) z AT&T (CORBA 2.6)
 Name:		omniORB
-Version:	4.0.1
+Version:	4.0.2
 Release:	0.1
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/omniorb/%{name}-%{version}.tar.gz
-# Source0-md5: 430b889bd2e1e9a7563df5c91fe4e455
+# Source0-md5:	283e4744759b73368fbea66f98c2bd95
 Source1:	%{name}.init
 URL:		http://omniorb.sf.net/
 BuildRequires:	libstdc++-devel
