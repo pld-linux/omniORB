@@ -119,7 +119,7 @@ fi
 %doc ReleaseNotes_%{version}.txt CREDITS README.{FIRST,unix}
 %attr(755,root,root) %{_bindir}/*
 %dir /var/log/%{name}
-%attr(755,root,root) /etc/rc.d/init.d/%{name}
+%attr(754,root,root) /etc/rc.d/init.d/%{name}
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}.cfg
 %{_mandir}/man1/*
 %attr(755,root,root) %{_libdir}/python*/site-packages/*.so*
