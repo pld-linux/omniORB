@@ -3,21 +3,21 @@
 #  - move some binaries from main to devel (main should only contain server)
 #  - ditto for documentation
 #  - logrotate script
-#  - enable openssl
 Summary:	Object Request Broker (ORB) from AT&T (CORBA 2.6)
 Summary(pl):	Object Request Broker (ORB) z AT&T (CORBA 2.6)
 Name:		omniORB
-Version:	4.0.0
+Version:	4.0.1
 Release:	0.1
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/omniorb/%{name}-%{version}.tar.gz
-# Source0-md5: c5dbd122c992ea1df4f6adf5e72644b1
+# Source0-md5: 430b889bd2e1e9a7563df5c91fe4e455
 Source1:	%{name}.init
 URL:		http://omniorb.sf.net/
-Requires:	%{name}-libs = %{version}-%{release}
+BuildRequires:	libstdc++-devel
+BuildRequires:	openssl-devel
 Requires(post,preun):	/sbin/chkconfig
-BuildRequires:	gcc-c++
+Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -31,8 +31,8 @@ omniORB implementuje wersjê 2.6 specyfikacji CORBA.
 %package devel
 Summary:	Development files for %{name}
 Summary(pl):	Pliki potrzebne do tworzenia aplikacji z u¿yciem %{name}
-Requires:	%{name} = %{version}-%{release}
 Group:		Development/Libraries
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 Development files for %{name}.
@@ -71,24 +71,32 @@ rm -f missing
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
-%configure --with-omniNames-logdir=/var/log/%{name}
-%{__make}
+%configure \
+	--with-omniNames-logdir=/var/log/%{name} \
+	--with-openssl=/usr/lib
+
+%{__make} \
+	SUBDIR_MAKEFLAGS='CDEBUGFLAGS="%{rpmcflags}" CXXDEBUGFLAGS="%{rpmcflags}"'
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_mandir}/man1,%{_sysconfdir}/rc.d/init.d,/var/log/%{name}}
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install man/man1/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install sample.cfg $RPM_BUILD_ROOT%{_sysconfdir}/omniORB.cfg
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/%{name}
 
+# rpmdeps doesn't generate ELF deps for non-executable .so
+chmod 755 $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.*
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post libs -p /sbin/ldconfig
-%postun libs -p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %post 
 /sbin/chkconfig --add sensors
@@ -111,24 +119,24 @@ fi
 %doc ReleaseNotes_%{version}.txt CREDITS README.{FIRST,unix}
 %attr(755,root,root) %{_bindir}/*
 %dir /var/log/%{name}
-%attr(755,root,root) %{_sysconfdir}/rc.d/init.d/*
-%{_sysconfdir}/%{name}.cfg
+%attr(755,root,root) /etc/rc.d/init.d/%{name}
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}.cfg
 %{_mandir}/man1/*
 %attr(755,root,root) %{_libdir}/python*/site-packages/*.so*
 %{_libdir}/python*/site-packages/omniidl
 %{_libdir}/python*/site-packages/omniidl_be
+%{_datadir}/idl/%{name}
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.so.*
-
-%files static
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.a
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/*.html doc/omniORB
-%attr(755,root,root) %{_libdir}/*.so
+%attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/*
-%{_datadir}/idl/%{name}
+
+%files static
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lib*.a
