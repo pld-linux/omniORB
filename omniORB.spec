@@ -12,6 +12,7 @@ Release:	0.1
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://telia.dl.sourceforge.net/omniorb/%{name}-%{version}.tar.gz
+# Source0-md5: c5dbd122c992ea1df4f6adf5e72644b1
 Source1:	%{name}.init
 URL:		http://omniorb.sf.net/
 Requires:	%{name}-libs = %{version}-%{release}
