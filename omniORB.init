@@ -24,7 +24,7 @@ case "$1" in
   start)
 	if [ ! -f /var/lock/subsys/omniORB ]; then
 		msg_starting "omniNames for omniORB"
-		if [ -f "/var/log/omniORB/omninames-$(hostname).log" ] ; then
+		if [ -f "/var/log/omniORB/omninames-$(hostname).log" ]; then
 			START=
 		else
 			START=-start
