@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# omniORB:		Starts omniORB
+# omniORB:	Starts omniORB
 #
 # chkconfig:	345 85 15
 # description:	This is a daemon which handles CORBA connections for \
@@ -17,10 +17,11 @@
 
 # Get sysconfig
 [ -f /etc/sysconfig/omniORB ] && . /etc/sysconfig/omniORB
-  
+
+
 # See how we were called.
 case "$1" in
-    start)
+  start)
 	if [ ! -f /var/lock/subsys/omniORB ]; then
 		msg_starting "omniNames for omniORB"
 		if [ -f "/var/log/omniORB/omninames-$(hostname).log" ] ; then
@@ -35,27 +36,26 @@ case "$1" in
 		msg_already_running "omniNames for omniORB"
 		exit 1
 	fi
-        touch /var/lock/subsys/omniORB
-        ;;
-    stop)
+	;;
+  stop)
 	if [ -f /var/lock/subsys/omniORB ]; then
 		msg_stopping "omniNames for omniORB"
 		killproc omniNames
 		rm -f /var/lock/subsys/omniORB >/dev/null 2>&1
 	else
-		msg_not_running "Name Switch Cache Daemon"
+		msg_not_running "omniNames for omniORB"
 		exit 1
 	fi	
 	;;
   status)
-        status omniNames
-        ;;
+	status omniNames
+	;;
   restart|reload)
-        $0 stop
-        $0 start
-        ;;
-    *)
-	msg_usage "$0 {start|stop|status|restart|reload}"
+	$0 stop
+	$0 start
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|reload|status}"
 	exit 1
 	;;
 esac
