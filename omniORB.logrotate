@@ -1,0 +1,7 @@
+/var/log/omniORB/omninames-*.log {
+  weekly
+  compress
+  copytruncate
+  missingok
+  olddir /var/log/archiv/omniORB
+}
