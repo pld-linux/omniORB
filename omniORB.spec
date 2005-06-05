@@ -75,9 +75,11 @@ Requires:	%{name}-libs = %{version}-%{release}
 
 %description python
 Python bindings for %{name}.
+Besides, package includes idl compiler - omniidl.
 
 %description python -l pl
 Wi±zania Pythona dla %{name}.
+Ponadto pakiet zawiera kompilator idl - omniidl.
 
 %package utils
 Summary:	Additional utilities for %{name}
