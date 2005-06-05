@@ -31,6 +31,17 @@ specification 2.6 of the Common Object Request Broker Architecture
 %description -l pl
 omniORB implementuje wersjê 2.6 specyfikacji CORBA.
 
+%package libs
+Summary:	Shared libraries for %{name}
+Summary(pl):	Dzielone biblioteki dla aplikacji korzystaj±cych z %{name}
+Group:		Libraries
+
+%description libs
+Shared libraries for %{name}.
+
+%description libs -l pl
+Dzielone biblioteki dla aplikacji korzystaj±cych z %{name}.
+
 %package devel
 Summary:	Development files for %{name}
 Summary(pl):	Pliki potrzebne do tworzenia aplikacji z u¿yciem %{name}
@@ -43,16 +54,17 @@ Development files for %{name}.
 %description devel -l pl
 Pliki potrzebne do tworzenia aplikacji z u¿yciem %{name}.
 
-%package libs
-Summary:	Shared libraries for %{name}
-Summary(pl):	Dzielone biblioteki dla aplikacji korzystaj±cych z %{name}
-Group:		Libraries
+%package static
+Summary:	Static files for %{name}
+Summary(pl):	Statyczne biblioteki dla %{name}
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
 
-%description libs
-Shared libraries for %{name}.
+%description static
+Static files for %{name}.
 
-%description libs -l pl
-Dzielone biblioteki dla aplikacji korzystaj±cych z %{name}.
+%description static -l pl
+Statyczne biblioteki dla %{name}.
 
 %package python
 Summary:	Python bindings for %{name}
@@ -70,7 +82,7 @@ Wi±zania Pythona dla %{name}.
 %package utils
 Summary:	Additional utilities for %{name}
 Summary(pl):	Dodatkowe narzêdzia dla %{name}
-Group:          Development/Libraries
+Group:		Development/Tools
 Requires:	%{name}-libs = %{version}-%{release}
 
 %description utils
@@ -79,29 +91,16 @@ Additional utilities for %{name}.
 %description utils -l pl
 Dodatkowe narzêdzia dla %{name}.
 
-%package static
-Summary:	Static files for %{name}
-Summary(pl):	Statyczne biblioteki dla %{name}
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description static
-Static files for %{name}.
-
-%description static -l pl
-Statyczne biblioteki dla %{name}.
-
 %prep
 %setup -q
 
 %build
-rm -f missing
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
 %configure \
 	--with-omniNames-logdir=/var/log/%{name} \
-	--with-openssl=/usr/lib
+	--with-openssl=/usr/%{_lib}
 
 %{__make} \
 	SUBDIR_MAKEFLAGS='CDEBUGFLAGS="%{rpmcflags}" CXXDEBUGFLAGS="%{rpmcflags}"'
@@ -151,7 +150,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc ReleaseNotes_%{version}.txt CREDITS README.{FIRST.txt,unix}
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}.cfg
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.cfg
 %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}
 %attr(755,root,root) %{_bindir}/omniMapper
 %attr(755,root,root) %{_bindir}/omniNames
@@ -175,6 +174,10 @@ fi
 %{_includedir}/*
 %{_pkgconfigdir}/*.pc
 
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/lib*.a
+
 %files python
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/omniidl
@@ -192,7 +195,3 @@ fi
 %{_mandir}/man1/catior*
 %{_mandir}/man1/genior*
 %{_mandir}/man1/nameclt*
-
-%files static
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.a
