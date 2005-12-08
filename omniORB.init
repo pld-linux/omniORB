@@ -43,7 +43,7 @@ case "$1" in
 		rm -f /var/lock/subsys/omniORB >/dev/null 2>&1
 	else
 		msg_not_running "omniNames for omniORB"
-	fi	
+	fi
 	;;
   status)
 	status omniNames
