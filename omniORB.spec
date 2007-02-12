@@ -1,7 +1,7 @@
 # TODO:
 #  - ditto for documentation
 Summary:	Object Request Broker (ORB) from AT&T (CORBA 2.6)
-Summary(pl):	Object Request Broker (ORB) z AT&T (CORBA 2.6)
+Summary(pl.UTF-8):   Object Request Broker (ORB) z AT&T (CORBA 2.6)
 Name:		omniORB
 Version:	4.0.7
 Release:	0.1
@@ -28,47 +28,47 @@ omniORB is an Object Request Broker (ORB) which implements
 specification 2.6 of the Common Object Request Broker Architecture
 (CORBA).
 
-%description -l pl
-omniORB implementuje wersjê 2.6 specyfikacji CORBA.
+%description -l pl.UTF-8
+omniORB implementuje wersjÄ™ 2.6 specyfikacji CORBA.
 
 %package libs
 Summary:	Shared libraries for %{name}
-Summary(pl):	Dzielone biblioteki dla aplikacji korzystaj±cych z %{name}
+Summary(pl.UTF-8):   Dzielone biblioteki dla aplikacji korzystajÄ…cych z %{name}
 Group:		Libraries
 
 %description libs
 Shared libraries for %{name}.
 
-%description libs -l pl
-Dzielone biblioteki dla aplikacji korzystaj±cych z %{name}.
+%description libs -l pl.UTF-8
+Dzielone biblioteki dla aplikacji korzystajÄ…cych z %{name}.
 
 %package devel
 Summary:	Development files for %{name}
-Summary(pl):	Pliki potrzebne do tworzenia aplikacji z u¿yciem %{name}
+Summary(pl.UTF-8):   Pliki potrzebne do tworzenia aplikacji z uÅ¼yciem %{name}
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 Development files for %{name}.
 
-%description devel -l pl
-Pliki potrzebne do tworzenia aplikacji z u¿yciem %{name}.
+%description devel -l pl.UTF-8
+Pliki potrzebne do tworzenia aplikacji z uÅ¼yciem %{name}.
 
 %package static
 Summary:	Static files for %{name}
-Summary(pl):	Statyczne biblioteki dla %{name}
+Summary(pl.UTF-8):   Statyczne biblioteki dla %{name}
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static files for %{name}.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczne biblioteki dla %{name}.
 
 %package python
 Summary:	Python bindings for %{name}
-Summary(pl):	Wi±zania Pythona dla %{name}
+Summary(pl.UTF-8):   WiÄ…zania Pythona dla %{name}
 Group:		Development/Libraries
 %pyrequires_eq	python-libs
 Requires:	%{name}-libs = %{version}-%{release}
@@ -77,21 +77,21 @@ Requires:	%{name}-libs = %{version}-%{release}
 Python bindings for %{name}. Besides, package includes idl compiler -
 omniidl.
 
-%description python -l pl
-Wi±zania Pythona dla %{name}. Ponadto pakiet zawiera kompilator idl -
+%description python -l pl.UTF-8
+WiÄ…zania Pythona dla %{name}. Ponadto pakiet zawiera kompilator idl -
 omniidl.
 
 %package utils
 Summary:	Additional utilities for %{name}
-Summary(pl):	Dodatkowe narzêdzia dla %{name}
+Summary(pl.UTF-8):   Dodatkowe narzÄ™dzia dla %{name}
 Group:		Development/Tools
 Requires:	%{name}-libs = %{version}-%{release}
 
 %description utils
 Additional utilities for %{name}.
 
-%description utils -l pl
-Dodatkowe narzêdzia dla %{name}.
+%description utils -l pl.UTF-8
+Dodatkowe narzÄ™dzia dla %{name}.
 
 %prep
 %setup -q
