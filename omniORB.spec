@@ -1,7 +1,7 @@
 # TODO:
 #  - ditto for documentation
 Summary:	Object Request Broker (ORB) from AT&T (CORBA 2.6)
-Summary(pl.UTF-8):   Object Request Broker (ORB) z AT&T (CORBA 2.6)
+Summary(pl.UTF-8):	Object Request Broker (ORB) z AT&T (CORBA 2.6)
 Name:		omniORB
 Version:	4.0.7
 Release:	0.1
@@ -33,7 +33,7 @@ omniORB implementuje wersję 2.6 specyfikacji CORBA.
 
 %package libs
 Summary:	Shared libraries for %{name}
-Summary(pl.UTF-8):   Dzielone biblioteki dla aplikacji korzystających z %{name}
+Summary(pl.UTF-8):	Dzielone biblioteki dla aplikacji korzystających z %{name}
 Group:		Libraries
 
 %description libs
@@ -44,7 +44,7 @@ Dzielone biblioteki dla aplikacji korzystających z %{name}.
 
 %package devel
 Summary:	Development files for %{name}
-Summary(pl.UTF-8):   Pliki potrzebne do tworzenia aplikacji z użyciem %{name}
+Summary(pl.UTF-8):	Pliki potrzebne do tworzenia aplikacji z użyciem %{name}
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 
@@ -56,7 +56,7 @@ Pliki potrzebne do tworzenia aplikacji z użyciem %{name}.
 
 %package static
 Summary:	Static files for %{name}
-Summary(pl.UTF-8):   Statyczne biblioteki dla %{name}
+Summary(pl.UTF-8):	Statyczne biblioteki dla %{name}
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -68,7 +68,7 @@ Statyczne biblioteki dla %{name}.
 
 %package python
 Summary:	Python bindings for %{name}
-Summary(pl.UTF-8):   Wiązania Pythona dla %{name}
+Summary(pl.UTF-8):	Wiązania Pythona dla %{name}
 Group:		Development/Libraries
 %pyrequires_eq	python-libs
 Requires:	%{name}-libs = %{version}-%{release}
@@ -83,7 +83,7 @@ omniidl.
 
 %package utils
 Summary:	Additional utilities for %{name}
-Summary(pl.UTF-8):   Dodatkowe narzędzia dla %{name}
+Summary(pl.UTF-8):	Dodatkowe narzędzia dla %{name}
 Group:		Development/Tools
 Requires:	%{name}-libs = %{version}-%{release}
 
