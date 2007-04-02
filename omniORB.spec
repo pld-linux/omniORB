@@ -109,7 +109,7 @@ Dodatkowe narzędzia dla %{name}.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_mandir}/man1,/etc/{logrotate.d,rc.d/init.d},/var/log/{,archiv/}%{name}}
+install -d $RPM_BUILD_ROOT{%{_mandir}/man1,/etc/{logrotate.d,rc.d/init.d},/var/log/{,archive/}%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
