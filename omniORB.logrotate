@@ -3,5 +3,5 @@
   compress
   copytruncate
   missingok
-  olddir /var/log/archiv/omniORB
+  olddir /var/log/archive/omniORB
 }
