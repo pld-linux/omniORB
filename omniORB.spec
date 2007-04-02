@@ -158,7 +158,7 @@ fi
 %attr(755,root,root) %{_bindir}/omniNames
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
 %attr(750,root,root) %dir /var/log/%{name}
-%attr(750,root,root) %dir /var/log/archiv/%{name}
+%attr(750,root,root) %dir /var/log/archive/%{name}
 %attr(640,root,root) %ghost /var/log/%{name}/*
 %{_mandir}/man1/omniNames*
 
