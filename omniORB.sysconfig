@@ -1,0 +1,5 @@
+# Customized settings for omniORB
+
+# Cmdline options 
+OMNIORB_OPTS=""
+
