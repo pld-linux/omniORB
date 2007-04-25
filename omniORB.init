@@ -29,7 +29,7 @@ case "$1" in
 		else
 			START=-start
 		fi
-		daemon "sh -c 'omniNames $START -errlog /var/log/omniORB/omninames-err.log &'"
+		daemon "sh -c 'omniNames $START -errlog /var/log/omniORB/omninames-err.log $OMNIORB_OPTS &'"
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/omniORB
 	else
