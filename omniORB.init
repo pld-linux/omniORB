@@ -18,10 +18,7 @@
 # Get sysconfig
 [ -f /etc/sysconfig/omniORB ] && . /etc/sysconfig/omniORB
 
-RETVAL=0
-# See how we were called.
-case "$1" in
-  start)
+start() {
 	if [ ! -f /var/lock/subsys/omniORB ]; then
 		msg_starting "omniNames for omniORB"
 		if [ -f "/var/log/omniORB/omninames-$(hostname).log" ]; then
@@ -35,8 +32,9 @@ case "$1" in
 	else
 		msg_already_running "omniNames for omniORB"
 	fi
-	;;
-  stop)
+}
+
+stop() {
 	if [ -f /var/lock/subsys/omniORB ]; then
 		msg_stopping "omniNames for omniORB"
 		killproc omniNames
@@ -44,15 +42,24 @@ case "$1" in
 	else
 		msg_not_running "omniNames for omniORB"
 	fi
+}
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
 	;;
   status)
 	status omniNames
 	exit $?
 	;;
   restart|force-reload)
-	$0 stop
-	$0 start
-	exit $?
+	stop
+	start
 	;;
   *)
 	msg_usage "$0 {start|stop|restart|force-reload|status}"
