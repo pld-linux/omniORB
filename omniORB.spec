@@ -3,18 +3,20 @@
 Summary:	Object Request Broker (ORB) from AT&T (CORBA 2.6)
 Summary(pl.UTF-8):	Object Request Broker (ORB) z AT&T (CORBA 2.6)
 Name:		omniORB
-Version:	4.0.7
+Version:	4.1.0
 Release:	0.1
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/omniorb/%{name}-%{version}.tar.gz
-# Source0-md5:	9d478031be34232e988f3d5874396499
+# Source0-md5:	b52dcb1886ffa2a61e6ed56e462edb76
 Source1:	%{name}.init
 Source2:	%{name}.logrotate
+Source3:	%{name}.sysconfig
 URL:		http://omniorb.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
 BuildRequires:	python
@@ -97,6 +99,7 @@ Dodatkowe narzędzia dla %{name}.
 %setup -q
 
 %build
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
@@ -109,7 +112,7 @@ Dodatkowe narzędzia dla %{name}.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_mandir}/man1,/etc/{logrotate.d,rc.d/init.d},/var/log/{,archive/}%{name}}
+install -d $RPM_BUILD_ROOT{%{_mandir}/man1,/etc/{logrotate.d,rc.d/init.d,sysconfig},/var/log/{,archive/}%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -118,6 +121,7 @@ install man/man1/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install sample.cfg $RPM_BUILD_ROOT%{_sysconfdir}/omniORB.cfg
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
 touch $RPM_BUILD_ROOT/var/log/%{name}/omninames-err.log
 
@@ -151,9 +155,10 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc ReleaseNotes_%{version}.txt CREDITS README.{FIRST.txt,unix}
+%doc ReleaseNotes.txt CREDITS README.{FIRST.txt,unix}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.cfg
 %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
 %attr(755,root,root) %{_bindir}/omniMapper
 %attr(755,root,root) %{_bindir}/omniNames
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
