@@ -170,7 +170,8 @@ fi
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%ghost %{_libdir}/lib*.so.[1-0]
+%ghost %{_libdir}/lib*.so.1
+%ghost %{_libdir}/lib*.so.3
 %{_datadir}/idl/%{name}
 
 %files devel
