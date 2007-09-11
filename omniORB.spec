@@ -23,6 +23,7 @@ BuildRequires:	python
 BuildRequires:	python-devel
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
+Conflicts:	logrotate < 3.7.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -157,7 +158,7 @@ fi
 %defattr(644,root,root,755)
 %doc ReleaseNotes.txt CREDITS README.{FIRST.txt,unix}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.cfg
-%config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
 %attr(755,root,root) %{_bindir}/omniMapper
 %attr(755,root,root) %{_bindir}/omniNames
