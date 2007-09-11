@@ -23,7 +23,7 @@ BuildRequires:	python
 BuildRequires:	python-devel
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
-Conflicts:	logrotate < 3.7.4
+Conflicts:	logrotate < 3.7-4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
