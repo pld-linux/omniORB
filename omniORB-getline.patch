@@ -1,0 +1,45 @@
+diff -ur omniORB-4.1.0/src/tool/omkdepend/def.h omniORB-4.1.0-getline/src/tool/omkdepend/def.h
+--- omniORB-4.1.0/src/tool/omkdepend/def.h	2005-05-11 00:07:32.000000000 +0200
++++ omniORB-4.1.0-getline/src/tool/omkdepend/def.h	2010-04-26 12:21:09.000000000 +0200
+@@ -128,7 +128,7 @@
+ 
+ char			*copy();
+ char			*base_name();
+-char			*getline();
++char			*omk_getline();
+ struct symtab		*slookup();
+ struct symtab		*isdefined();
+ struct symtab		*fdefined();
+diff -ur omniORB-4.1.0/src/tool/omkdepend/main.c omniORB-4.1.0-getline/src/tool/omkdepend/main.c
+--- omniORB-4.1.0/src/tool/omkdepend/main.c	2003-03-23 22:01:49.000000000 +0100
++++ omniORB-4.1.0-getline/src/tool/omkdepend/main.c	2010-04-26 12:21:17.000000000 +0200
+@@ -469,7 +469,7 @@
+  * Get the next line.  We only return lines beginning with '#' since that
+  * is all this program is ever interested in.
+  */
+-char *getline(filep)
++char *omk_getline(filep)
+ 	register struct filepointer	*filep;
+ {
+ 	register char	*p,	/* walking pointer */
+diff -ur omniORB-4.1.0/src/tool/omkdepend/parse.c omniORB-4.1.0-getline/src/tool/omkdepend/parse.c
+--- omniORB-4.1.0/src/tool/omkdepend/parse.c	2003-03-23 22:01:49.000000000 +0100
++++ omniORB-4.1.0-getline/src/tool/omkdepend/parse.c	2010-04-26 12:21:28.000000000 +0200
+@@ -41,7 +41,7 @@
+ 	register int	type;
+ 	boolean recfailOK;
+ 
+-	while (line = getline(filep)) {
++	while (line = omk_getline(filep)) {
+ 		switch(type = deftype(line, filep, file_red, file, TRUE)) {
+ 		case IF:
+ 		doif:
+@@ -166,7 +166,7 @@
+ 	register char	*line;
+ 	register int	type;
+ 
+-	while (line = getline(filep)) {
++	while (line = omk_getline(filep)) {
+ 		switch(type = deftype(line, filep, file_red, file, FALSE)) {
+ 		case IF:
+ 		case IFFALSE:
