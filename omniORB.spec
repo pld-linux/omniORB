@@ -3,20 +3,18 @@
 Summary:	Object Request Broker (ORB) from AT&T (CORBA 2.6)
 Summary(pl.UTF-8):	Object Request Broker (ORB) z AT&T (CORBA 2.6)
 Name:		omniORB
-Version:	4.1.0
-Release:	5
+Version:	4.1.4
+Release:	1
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/omniorb/%{name}-%{version}.tar.gz
-# Source0-md5:	b52dcb1886ffa2a61e6ed56e462edb76
+# Source0-md5:	1f6070ff9b6339876976d61981eeaa6a
 Source1:	%{name}.init
 Source2:	%{name}.logrotate
 Source3:	%{name}.sysconfig
+Patch0:		%{name}-openssl.patch
 URL:		http://omniorb.sourceforge.net/
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
 BuildRequires:	python
@@ -98,12 +96,9 @@ Dodatkowe narzędzia dla %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
 %configure \
 	--with-omniNames-logdir=/var/log/%{name} \
 	--with-openssl=/usr/%{_lib}
@@ -113,12 +108,13 @@ Dodatkowe narzędzia dla %{name}.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_mandir}/man1,/etc/{logrotate.d,rc.d/init.d,sysconfig},/var/log/{,archive/}%{name}}
+install -d $RPM_BUILD_ROOT{%{_mandir}/man{1,8},/etc/{logrotate.d,rc.d/init.d,sysconfig},/var/log/{,archive/}%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install man/man1/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install man/man8/*.8 $RPM_BUILD_ROOT%{_mandir}/man8
 install sample.cfg $RPM_BUILD_ROOT%{_sysconfdir}/omniORB.cfg
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
@@ -166,7 +162,8 @@ fi
 %attr(750,root,root) %dir /var/log/%{name}
 %attr(750,root,root) %dir /var/log/archive/%{name}
 %attr(640,root,root) %ghost /var/log/%{name}/*
-%{_mandir}/man1/omniNames*
+%{_mandir}/man8/omniMapper*
+%{_mandir}/man8/omniNames*
 
 %files libs
 %defattr(644,root,root,755)
