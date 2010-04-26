@@ -1,0 +1,22 @@
+--- omniORB-4.1.4/src/lib/omniORB/orbcore/ssl/sslContext.cc~	2009-05-28 11:51:45.000000000 +0200
++++ omniORB-4.1.4/src/lib/omniORB/orbcore/ssl/sslContext.cc	2010-04-26 12:32:46.860124872 +0200
+@@ -197,7 +197,7 @@
+ }
+ 
+ /////////////////////////////////////////////////////////////////////////
+-SSL_METHOD*
++const SSL_METHOD*
+ sslContext::set_method() {
+   return SSLv23_method();
+ }
+--- omniORB-4.1.4/include/omniORB4/sslContext.h~	2009-05-06 18:16:12.000000000 +0200
++++ omniORB-4.1.4/include/omniORB4/sslContext.h	2010-04-26 12:33:30.800123684 +0200
+@@ -111,7 +111,7 @@
+   virtual ~sslContext();
+ 
+  protected:
+-  virtual SSL_METHOD* set_method(); 
++  virtual const SSL_METHOD* set_method(); 
+   // Default to return SSLv23_method().
+ 
+   virtual void set_supported_versions(); 
