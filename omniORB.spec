@@ -19,6 +19,8 @@ BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	python-devel
+BuildRequires:	python-modules
+BuildRequires:	rpm-pythonprov
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
 Conflicts:	logrotate < 3.7-4
@@ -168,8 +170,8 @@ fi
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%ghost %{_libdir}/lib*.so.1
-%ghost %{_libdir}/lib*.so.3
+%attr(755,root,root) %ghost %{_libdir}/lib*.so.1
+%attr(755,root,root) %ghost %{_libdir}/lib*.so.3
 %{_datadir}/idl/%{name}
 
 %files devel
