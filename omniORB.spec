@@ -4,7 +4,7 @@ Summary:	Object Request Broker (ORB) from AT&T (CORBA 2.6)
 Summary(pl.UTF-8):	Object Request Broker (ORB) z AT&T (CORBA 2.6)
 Name:		omniORB
 Version:	4.1.4
-Release:	2
+Release:	3
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/omniorb/%{name}-%{version}.tar.gz
@@ -25,6 +25,8 @@ Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
 Conflicts:	logrotate < 3.7-4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		skip_post_check_so	 _omniidlmodule\.so\..* libCOS.\.so\..* libCOSDynamic.\.so\..*
 
 %description
 omniORB is an Object Request Broker (ORB) which implements
