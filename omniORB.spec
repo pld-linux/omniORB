@@ -7,7 +7,7 @@ Version:	4.1.7
 Release:	1
 License:	GPL/LGPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/omniorb/%{name}-%{version}.tar.bz2
+Source0:	http://download.sourceforge.net/omniorb/%{name}-%{version}.tar.bz2
 # Source0-md5:	ce8cbe25418a76a2aac5395399463362
 Source1:	%{name}.init
 Source2:	%{name}.logrotate
