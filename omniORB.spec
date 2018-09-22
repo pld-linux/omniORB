@@ -1,19 +1,19 @@
 # TODO:
 #  - ditto for documentation
+# - drop skip_post_check_so for libomniZIOPDynamic4.so and fix linking instead
 Summary:	Object Request Broker (ORB) from AT&T (CORBA 2.6)
 Summary(pl.UTF-8):	Object Request Broker (ORB) z AT&T (CORBA 2.6)
 Name:		omniORB
-Version:	4.1.7
-Release:	2
+Version:	4.2.2
+Release:	1
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://download.sourceforge.net/omniorb/%{name}-%{version}.tar.bz2
-# Source0-md5:	ce8cbe25418a76a2aac5395399463362
+# Source0-md5:	cc6b2a65a2b1c1b3d44b3ccbaf92e104
 Source1:	%{name}.init
 Source2:	%{name}.logrotate
 Source3:	%{name}.sysconfig
 Patch0:		%{name}-openssl.patch
-Patch1:		format-security.patch
 URL:		http://omniorb.sourceforge.net/
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 0.9.7d
@@ -27,7 +27,7 @@ Requires:	%{name}-libs = %{version}-%{release}
 Conflicts:	logrotate < 3.7-4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		skip_post_check_so	 _omniidlmodule\.so\..* libCOS.\.so\..* libCOSDynamic.\.so\..*
+%define		skip_post_check_so	 _omniidlmodule\.so\..* libCOS.\.so\..* libCOSDynamic.\.so\..* libomniZIOPDynamic4\.so\..*
 
 %description
 omniORB is an Object Request Broker (ORB) which implements
@@ -102,7 +102,6 @@ Dodatkowe narzędzia dla %{name}.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %configure \
@@ -158,7 +157,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc ReleaseNotes.txt CREDITS README.{FIRST.txt,unix}
+%doc ReleaseNotes.txt CREDITS README.{FIRST,unix}.txt
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.cfg
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
@@ -174,8 +173,8 @@ fi
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/lib*.so.1
-%attr(755,root,root) %ghost %{_libdir}/lib*.so.3
+%attr(755,root,root) %ghost %{_libdir}/lib*.so.2
+%attr(755,root,root) %ghost %{_libdir}/lib*.so.4
 %{_datadir}/idl/%{name}
 
 %files devel
@@ -186,6 +185,7 @@ fi
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/*
 %{_pkgconfigdir}/*.pc
+%{_mandir}/man1/omnicpp.1*
 
 %files static
 %defattr(644,root,root,755)
@@ -206,5 +206,6 @@ fi
 %attr(755,root,root) %{_bindir}/genior
 %attr(755,root,root) %{_bindir}/nameclt
 %{_mandir}/man1/catior*
+%{_mandir}/man1/convertior.1*
 %{_mandir}/man1/genior*
 %{_mandir}/man1/nameclt*
