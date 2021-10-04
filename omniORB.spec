@@ -109,7 +109,7 @@ Dodatkowe narzędzia dla %{name}.
 	--with-openssl=/usr/%{_lib}
 
 %{__make} \
-	SUBDIR_MAKEFLAGS='CDEBUGFLAGS="%{rpmcflags}" CXXDEBUGFLAGS="%{rpmcflags}"'
+	SUBDIR_MAKEFLAGS='CDEBUGFLAGS="%{rpmcflags} -std=c++11" CXXDEBUGFLAGS="%{rpmcflags} -std=c++11"'
 
 %install
 rm -rf $RPM_BUILD_ROOT
